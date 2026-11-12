@@ -60,10 +60,16 @@ The interface includes visible button labels, focus styles, some status announce
 
 With more time, I would refine responsive layouts for smaller screens, test all interactions across browsers and devices, improve keyboard and screen-reader accessibility, make the scoring feedback more contextual, and simplify the CSS by consolidating overlapping animation rules. I would also create a true single-file HTML build if the assessment requires all assets and scripts embedded in one document.
 
-## Credits
+## Credits and references
 
-- **Concept, creative direction and custom pixel-character artwork:** student project author.
-- **Development assistance:** OpenAI ChatGPT; GPT-3.5 Luna in VS Code (as reported by the author).
-- **Technology:** HTML, CSS, JavaScript and built-in browser APIs.
+- **Concept, creative direction and original pixel-character drawings:** student project author. The `pose-arms.png`, `pose-run.png`, and `poop_character.png` assets are custom project artwork; verify the final files before publishing.
+- **Typography:** `Courier New` with the generic `monospace` fallback, as declared in `style.css`. This is a system-font stack; no third-party font files or hosted font services are loaded.
+- **Nyan Cat (2011), Christopher Torres / prguitarman:** visual inspiration for the rainbow, pixel-art and looping internet aesthetic. Reference: https://knowyourmeme.com/memes/nyan-cat . No original Nyan Cat image or soundtrack is embedded in the supplied code.
+- **“Emotional Damage” (2021), Steven He:** referenced by the `EMOTIONAL DAMAGE` text in the random Panic Button messages. Reference: https://knowyourmeme.com/memes/emotional-damage . No original audio or video is embedded.
+- **Other internet-humour references:** `404: PRODUCTIVITY NOT FOUND`, `BRAIN HAS LEFT THE CHAT`, and the Gordon Ramsay joke are textual references/parodies; these are not credited as copied visual assets.
+- **Emoji:** Unicode emoji rendered by the visitor’s operating system/browser, not a separately imported emoji pack.
+- **Sound:** retro beeps are synthesized at runtime with the browser Web Audio API; no downloaded audio tracks are used.
+- **Development assistance:** OpenAI ChatGPT for initial coding and iteration; GPT-3.5 Luna in VS Code for subsequent code revisions and debugging (as reported by the author).
+- **Technology:** HTML, CSS, vanilla JavaScript and browser APIs. No third-party JavaScript framework or hosted library is imported by the supplied source files.
 
-Before submitting, add any other third-party asset/font/library credits actually used in the final deployed version.
+The references above acknowledge creative influences and meme origins; attribution alone does not grant permission to reproduce copyrighted source media. The supplied project uses its own artwork rather than embedding those source images or recordings.
