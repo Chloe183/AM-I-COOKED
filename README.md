@@ -43,12 +43,11 @@ assets/
   pose-run.png
   poop_character.png
 README.md
-ASSESSMENT_NOTE.md
 ```
 
 The HTML loads `style.css` and `script.js` using relative paths. The JavaScript loads the three PNGs from `assets/`. **All of these files must be uploaded together** to the same repository, preserving their filenames and folders. GitHub Pages can host the project as a static site; set the publishing source to the repository's `main` branch and root folder, or another folder containing `index.html`.
 
-**Live website:** [ADD YOUR DEPLOYED URL HERE]
+**Live website:** [[AM I COOKED!!!](https://chloe183.github.io/AM-I-COOKED/)]
 
 To test locally, open `index.html` in a modern browser. For a more deployment-like test, serve the folder using a local static server. Verify the intro, all seven questions, score/result screen, background movement, Panic Button, copy/download actions and mobile layout.
 
