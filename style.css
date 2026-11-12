@@ -22,3 +22,129 @@
 @keyframes cat-bounce{to{transform:translateY(-9px) rotate(-2deg)}}
 @keyframes cat-overlay-in{from{opacity:0}to{opacity:1}}
 @media(prefers-reduced-motion:reduce){.cat-panic-cat{animation:none}.cat-poop{animation-duration:.15s!important}}
+
+/* Coffee-headed protagonist + hallucination effects */
+.coffee-human-art{overflow:visible}.coffee-human-art .visions{animation:visions-wobble 1.5s steps(3,end) infinite alternate;transform-origin:50% 50%}
+@keyframes visions-wobble{to{transform:translate(4px,-8px) rotate(8deg);opacity:.5}}
+/* Opening cutscene */
+body.intro-playing{overflow:hidden}.cinematic-intro{position:fixed;inset:0;background:#050409;color:#fff;z-index:99999;display:grid;place-items:center;overflow:hidden}
+.cinematic-line{position:relative;z-index:2;max-width:min(880px,88vw);text-align:center;font-family:'Courier New',monospace;font-weight:900;font-size:clamp(23px,5.2vw,62px);line-height:1.32;letter-spacing:-.035em;opacity:0;transform:translateY(18px);transition:opacity .2s,transform .2s;text-shadow:4px 4px 0 #3c215d}
+.cinematic-line.visible{opacity:1;transform:translateY(0)}
+.skip-intro{position:absolute;bottom:25px;right:25px;z-index:5;background:transparent;color:#aaa;border:1px solid #555;font:700 12px 'Courier New',monospace;padding:11px;cursor:pointer}.skip-intro:hover{color:#fff;border-color:#fff}
+.rainbow-wipe{position:absolute;z-index:4;inset:0;display:flex;flex-direction:column;transform:scaleX(0);transform-origin:left center;will-change:transform;pointer-events:none}.rainbow-wipe i{flex:1;display:block}.rainbow-wipe i:nth-child(1){background:#ff5b83}.rainbow-wipe i:nth-child(2){background:#ffae57}.rainbow-wipe i:nth-child(3){background:#fff06c}.rainbow-wipe i:nth-child(4){background:#67e89e}.rainbow-wipe i:nth-child(5){background:#59caff}.rainbow-wipe i:nth-child(6){background:#b58bff}.rainbow-wipe.sweep{animation:rainbow-grow 1.8s steps(28,end) forwards}.rainbow-wipe.exit{transform:scaleX(1);animation:rainbow-exit 1.15s steps(24,end) forwards;transform-origin:right center}@keyframes rainbow-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}@keyframes rainbow-exit{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.cinematic-intro.intro-finished{opacity:0;transition:opacity .5s}
+@media(prefers-reduced-motion:reduce){.rainbow-wipe.sweep{animation:none;transform:scaleX(1)}.rainbow-wipe.exit{animation:none;transform:scaleX(0)}.cinematic-line{transition:none}}
+
+/* Dizzy gender-neutral pixel mascot */
+.dizzy-human{width:min(290px,31vw)}
+.dizzy-orbit{transform-origin:120px 38px;animation:orbit-dizzy 2.2s linear infinite}
+.panic-human-svg .dizzy-orbit{transform-origin:205px 28px}
+.spiral-eyes{animation:eyes-dizzy .7s steps(2,end) infinite alternate}
+@keyframes orbit-dizzy{to{transform:rotate(360deg)}}
+@keyframes eyes-dizzy{to{transform:translateY(2px)}}
+.cat-panic-cat{width:min(75vw,390px);animation:panic-wiggle .19s steps(2,end) infinite alternate!important}
+@keyframes panic-wiggle{to{transform:translateY(-8px) rotate(2deg)}}
+.cat-poop{position:absolute!important;transform:translate(-50%,-50%);pointer-events:none;z-index:3;animation:butt-launch var(--duration,1200ms) cubic-bezier(.2,.5,.3,1) forwards!important}
+@keyframes butt-launch{0%{opacity:1;transform:translate(-50%,-50%) scale(.4) rotate(0)}18%{opacity:1;transform:translate(calc(-50% - 20px),calc(-50% - 4px)) scale(1.1) rotate(-25deg)}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.8) rotate(var(--spin))}}
+
+
+/* Endless pixel-human parade above and below the interface */
+.pixel-parade{position:relative;z-index:3;width:100%;height:82px;overflow:hidden;background:#180d3b;border-block:4px solid #ff8bd1;box-shadow:inset 0 5px #33205d,inset 0 -5px #33205d;pointer-events:none}
+.parade-top{margin-top:0}.parade-bottom{margin-bottom:0}
+.parade-track{display:flex;align-items:center;width:max-content;height:100%;animation:parade-scroll 19s linear infinite;will-change:transform}
+.parade-bottom .parade-track{animation-direction:reverse;animation-duration:23s}
+.parade-half{display:flex;align-items:center;flex:none;gap:16px;padding-right:16px}
+.parade-person{width:70px;height:66px;flex:none;image-rendering:pixelated;filter:drop-shadow(3px 3px 0 #080617);animation:parade-jump .48s steps(2,end) infinite alternate}
+.parade-person:nth-child(even){animation-delay:-.24s}
+@keyframes parade-scroll{to{transform:translateX(-50%)}}
+@keyframes parade-jump{to{transform:translateY(-5px)}}
+@media(max-width:650px){.pixel-parade{height:64px}.parade-person{width:53px;height:51px}.parade-half{gap:10px;padding-right:10px}}
+@media(prefers-reduced-motion:reduce){.parade-track,.parade-person{animation:none}}
+
+/* Fixed, unmistakable continuous movement: top RIGHT, bottom LEFT. */
+.scene .pixel-cat,.dizzy-human{display:none!important}
+.parade-track{animation:none!important;transform:none;}
+.parade-top .parade-track{animation:pixel-march-right 16s linear infinite!important;}
+.parade-bottom .parade-track{animation:pixel-march-left 18s linear infinite!important;}
+@keyframes pixel-march-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes pixel-march-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.parade-person{animation:parade-jump .45s steps(2,end) infinite alternate!important}
+.panic-runner{display:block;width:100%;height:auto;image-rendering:pixelated}
+@media(prefers-reduced-motion:reduce){.parade-top .parade-track,.parade-bottom .parade-track,.parade-person{animation:none!important}}
+
+/* Uploaded PNG silhouettes, no redrawing of their contours */
+.parade-person{object-fit:contain;width:74px;height:68px;animation:none!important;filter:drop-shadow(2px 3px 0 #09051a)}
+.parade-half{gap:18px;padding-right:18px}
+.parade-top .parade-track{animation:pixel-march-right 22s linear infinite!important}
+.parade-bottom .parade-track{animation:pixel-march-left 22s linear infinite!important}
+@media(max-width:650px){.parade-person{width:55px;height:51px}.parade-half{gap:12px;padding-right:12px}}
+
+/* V5 — borderless oversized background parade, single-screen interface */
+html,body{width:100%;height:100%;overflow:hidden!important}
+body{position:relative;min-height:0!important}
+.pixel-parade{position:fixed!important;left:0;right:0;width:100%;height:clamp(125px,24vh,250px)!important;z-index:0!important;overflow:hidden;background:transparent!important;border:0!important;box-shadow:none!important;pointer-events:none}
+.parade-top{top:0!important;margin:0!important}
+.parade-bottom{bottom:0!important;margin:0!important}
+.parade-track{height:100%;align-items:center}
+.parade-half{gap:clamp(16px,3vw,45px);padding-right:clamp(16px,3vw,45px)}
+.parade-person{width:clamp(120px,17vh,220px)!important;height:clamp(120px,22vh,220px)!important;object-fit:contain;filter:drop-shadow(4px 5px 0 #0d072c);animation:none!important}
+.parade-top .parade-track{animation:pixel-march-right 19s linear infinite!important}
+.parade-bottom .parade-track{animation:pixel-march-left 19s linear infinite!important}
+.shell{position:relative;z-index:2;height:100dvh;max-width:1200px;padding:clamp(10px,1.5vh,18px) clamp(14px,3vw,36px)!important;display:flex;flex-direction:column;overflow:hidden}
+.top{flex:0 0 auto;min-height:35px}
+.stage{flex:1;min-height:0!important;grid-template-columns:.88fr 1.12fr;gap:clamp(18px,3vw,44px);padding:0!important;align-items:center}
+.intro{min-height:0;max-height:100%;overflow:hidden}
+.hero{font-size:clamp(45px,min(7vw,12vh),100px);margin:clamp(8px,2vh,22px) 0}
+.intro p{font-size:clamp(12px,1.6vh,16px);line-height:1.45}
+.tiny{margin-top:clamp(8px,1.4vh,18px);font-size:clamp(9px,1.2vh,11px)}
+.panel{max-height:calc(100dvh - 100px);overflow-y:auto;overscroll-behavior:contain;padding:clamp(13px,2.6vh,28px) clamp(16px,2.5vw,30px);scrollbar-width:thin}
+.panel h2{font-size:clamp(22px,3.6vh,42px);margin:clamp(7px,1.2vh,15px) 0}
+.panel p{line-height:1.4;margin-block:clamp(6px,1vh,13px)}
+.question{font-size:clamp(19px,3vh,34px)!important;min-height:0!important}
+.option-grid{gap:clamp(5px,.8vh,10px)}
+.option{padding:clamp(6px,1vh,11px) 10px;font-size:clamp(11px,1.55vh,13px)}
+.option i{height:24px;width:24px}
+.progress-track{margin:8px 0 14px}
+.actions{margin-top:clamp(10px,1.5vh,20px);gap:10px}
+.big-button,.outline-button{padding:clamp(7px,1.2vh,12px) 12px;font-size:clamp(10px,1.5vh,13px)}
+.footer{flex:0 0 auto;padding-top:4px;font-size:9px}
+.live-panel{padding:8px!important;margin-top:8px!important}
+.arcade-toolbar{margin-top:8px!important;gap:7px!important}
+@media(max-width:790px){.stage{grid-template-columns:1fr;gap:8px;align-content:center;justify-items:stretch}.intro{text-align:center}.intro .hero{font-size:clamp(36px,7vh,65px);margin:4px 0}.intro p{max-width:none;font-size:11px;line-height:1.25;margin:3px auto}.intro .tiny{display:none}.eyebrow{font-size:9px}.panel{max-height:calc(100dvh - 240px);padding:12px 15px}.top .tag{display:none}.pixel-parade{height:clamp(105px,19vh,170px)!important}.parade-person{width:clamp(90px,15vh,150px)!important;height:clamp(95px,18vh,160px)!important}.footer{font-size:8px}.panel h2{font-size:23px}.option{padding:6px 9px}}
+@media(max-height:650px) and (min-width:791px){.hero{font-size:clamp(42px,8vh,70px)}.intro .tiny{display:none}.panel{max-height:calc(100dvh - 72px)}.shell{padding-block:7px!important}.footer{display:none}}
+@media(prefers-reduced-motion:reduce){.parade-top .parade-track,.parade-bottom .parade-track{animation:none!important}}
+
+/* V6: visible continuous seamless parade and persistent panic control */
+.parade-top .parade-track,.parade-bottom .parade-track{animation:none!important;display:flex;width:max-content;}
+.parade-top .parade-half,.parade-bottom .parade-half{animation:parade-right-fixed 21s linear infinite;will-change:transform;}
+.parade-bottom .parade-half{animation-name:parade-left-fixed;animation-duration:24s;}
+@keyframes parade-right-fixed{from{transform:translateX(-100%)}to{transform:translateX(0)}}
+@keyframes parade-left-fixed{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+.parade-half{gap:0!important;padding-right:0!important;}
+.parade-person{margin-right:clamp(16px,3vw,45px);}
+.global-panic{display:inline-block;position:relative;z-index:5;margin-top:clamp(8px,1.8vh,20px)!important;padding:12px 16px;font-weight:900;box-shadow:4px 4px 0 #160d39;}
+.intro .tiny{display:block!important;}
+@media(max-width:790px){.intro .tiny{font-size:8px!important;line-height:1.35;margin-top:5px!important}.global-panic{margin-top:6px!important;padding:7px 10px;font-size:10px}.intro p{display:none}.intro .hero{font-size:clamp(30px,6vh,60px)}}
+@media(prefers-reduced-motion:reduce){.parade-top .parade-half,.parade-bottom .parade-half{animation:none!important}}
+
+/* V7: one animated TRACK, two stationary matching halves. Previous version
+   animated each half independently, causing visual overlap and no travel. */
+.pixel-parade .parade-half{animation:none!important;transform:none!important;flex:0 0 auto;}
+.pixel-parade .parade-track{display:flex!important;width:max-content!important;animation-duration:18s!important;animation-timing-function:linear!important;animation-iteration-count:infinite!important;animation-play-state:running!important;will-change:transform;}
+.parade-top .parade-track{animation-name:pixel-march-right!important;}
+.parade-bottom .parade-track{animation-name:pixel-march-left!important;animation-duration:20s!important;}
+@keyframes pixel-march-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+@keyframes pixel-march-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* Flashy intentionally tacky arcade emergency button */
+.global-panic{background:#ffea00!important;color:#210a41!important;border:4px solid #fff!important;border-radius:0!important;font-size:clamp(12px,1.9vh,17px)!important;letter-spacing:1px;box-shadow:5px 5px 0 #f900a8,9px 9px 0 #111!important;animation:panic-neon .65s steps(2,end) infinite!important;transform-origin:center;cursor:pointer;}
+.global-panic:hover{animation:panic-neon .23s steps(2,end) infinite!important;transform:scale(1.06) rotate(-2deg);}
+.global-panic:active{transform:scale(.96)}
+@keyframes panic-neon{0%,49%{background:#fff000!important;color:#290046!important;box-shadow:5px 5px 0 #ff00a8,9px 9px 0 #111,0 0 22px #ff00a8!important;}50%,100%{background:#ff3bb7!important;color:#fff!important;box-shadow:5px 5px 0 #00f6f6,9px 9px 0 #111,0 0 22px #00f6f6!important;}}
+/* Panic character uses the same solid gradient pixel silhouette language as the user PNGs. */
+.panic-runner{width:100%;height:auto;image-rendering:pixelated;filter:drop-shadow(4px 5px 0 #1b0c38)}
+@media(prefers-reduced-motion:reduce){.global-panic{animation:none!important}}
+
+.scene .rainbow{animation:drift 8s ease-in-out infinite alternate!important}
+@keyframes drift{from{transform:rotate(-12deg) translate(0,0)}to{transform:rotate(-12deg) translate(140px,40px)}}
+.rainbow-wipe.sweep{animation:rainbow-grow 1.8s cubic-bezier(.22,.61,.36,1) forwards!important}
+.rainbow-wipe.exit{animation:rainbow-exit 1.15s cubic-bezier(.65,0,.78,.36) forwards!important}

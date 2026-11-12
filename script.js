@@ -13,7 +13,7 @@ const panicMessages=[
 ['🚨 DEADLINE DETECTED','Your assignment just filed a missing-person report.'],
 ['☕ COFFEE.exe HAS STOPPED WORKING','Your bloodstream is now 87% iced latte.'],
 ['💩 POOP HAPPENS','Your schedule has entered its villain era.'],
-['🐱 NYAN CAT IS DISAPPOINTED','Even the rainbow cannot carry your GPA.'],
+['☕ YOUR COFFEE IS JUDGING YOU','Even the rainbow cannot carry your GPA.'],
 ['📚 HOMEWORK JUMPSCARE','The Google Doc has been open for 4 hours. It is still blank.'],
 ['⏰ TIME IS A SOCIAL CONSTRUCT','Unfortunately, your professor disagrees.'],
 ['🧠 BRAIN NOT FOUND','Have you tried turning yourself off and on again?'],
@@ -49,38 +49,30 @@ function panicStorm(){
  const title=document.createElement('div');title.className='cat-panic-caption';title.textContent=headline;
  const subtitle=document.createElement('div');subtitle.className='cat-panic-sub';subtitle.textContent=subline;
  const close=document.createElement('button');close.className='cat-panic-close';close.type='button';close.textContent='✕';close.setAttribute('aria-label','Close panic animation');close.onclick=()=>{overlay.remove();if(activeCatPanic===overlay)activeCatPanic=null};
- // Pixel cat drawn in SVG so the HTML stays completely self-contained.
+ // Use the provided poop character asset for the panic animation.
  const cat=document.createElement('div');cat.className='cat-panic-cat';
- cat.innerHTML=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 140" width="100%" shape-rendering="crispEdges" role="img" aria-label="Side-view pixel cat with visible rear and tail">
- <!-- tail curling up behind the rump -->
- <path d="M36 77H21V66H10V39H22V55H34V65H46" fill="none" stroke="#30204e" stroke-width="12" stroke-linejoin="miter"/>
- <path d="M36 77H21V66H10V39" fill="none" stroke="#c9c9db" stroke-width="5"/>
- <!-- body silhouette with round pixelated rear on left -->
- <path d="M49 50H105V39H144V50H164V61H175V104H164V115H47V104H35V66H47V55H49Z" fill="#30204e"/>
- <path d="M49 60H110V50H143V61H163V71H165V103H153V105H49V94H45V70H49Z" fill="#c9c9db"/>
- <!-- highlighted rump cheek, with small visible butt mark -->
- <rect x="48" y="72" width="35" height="30" fill="#b1b1c8"/>
- <path d="M63 83v12" stroke="#79758f" stroke-width="4"/>
- <rect x="43" y="85" width="7" height="7" fill="#ff82ae"/>
- <!-- feet -->
- <rect x="55" y="105" width="21" height="18" fill="#30204e"/><rect x="60" y="105" width="12" height="12" fill="#c9c9db"/>
- <rect x="131" y="105" width="21" height="18" fill="#30204e"/><rect x="136" y="105" width="12" height="12" fill="#c9c9db"/>
- <!-- head faces right, with ears -->
- <path d="M112 60V25H125V13H139V26H155V13H169V34H180V48H191V96H180V107H119V96H108V60Z" fill="#30204e"/>
- <path d="M120 61V34H132V24H137V35H159V24H165V44H178V56H182V94H172V99H125V88H118V61Z" fill="#c9c9db"/>
- <rect x="143" y="65" width="8" height="12" fill="#30204e"/><rect x="174" y="65" width="8" height="12" fill="#30204e"/>
- <rect x="130" y="83" width="13" height="9" fill="#ff85b5"/><rect x="181" y="83" width="9" height="9" fill="#ff85b5"/>
- <rect x="158" y="84" width="10" height="7" fill="#f46ca7"/><path d="M163 91v7h-7m7 0h7" stroke="#30204e" stroke-width="3" fill="none"/>
- </svg>`;
+ const character=document.createElement('img');character.className='panic-runner';character.src='assets/poop_character.png';character.alt='Rainbow pixel poop character';character.draggable=false;
+ cat.append(character);
  scene.append(title,cat,subtitle,close);overlay.append(scene);document.body.append(overlay);activeCatPanic=overlay;
  const icons=['💩','☕','💀'];
+ // Every particle is born at the character's actual rear, not the screen center.
  let emitted=0;
  const timer=setInterval(()=>{
   if(!overlay.isConnected||emitted>=26){clearInterval(timer);return;}
-  const icon=document.createElement('span');icon.className='cat-poop';icon.textContent=icons[Math.floor(Math.random()*icons.length)];
-  icon.style.setProperty('--dx',(-40-Math.random()*220)+'px');icon.style.setProperty('--dy',(-120+Math.random()*250)+'px');
-  icon.style.setProperty('--spin',(-500+Math.random()*1000)+'deg');icon.style.setProperty('--duration',(850+Math.random()*550)+'ms');
-  scene.append(icon);setTimeout(()=>icon.remove(),1500);emitted++;
+    const bounds=character.getBoundingClientRect();
+    // The character faces right, so emit from the lower-left rear/hip.
+    const buttX=bounds.left+bounds.width*.22;
+    const buttY=bounds.top+bounds.height*.66;
+  const sceneBounds=scene.getBoundingClientRect();
+  const icon=document.createElement('span');icon.className='cat-poop';
+  icon.textContent=icons[Math.floor(Math.random()*icons.length)];
+  icon.style.left=(buttX-sceneBounds.left)+'px';
+  icon.style.top=(buttY-sceneBounds.top)+'px';
+  icon.style.setProperty('--dx',(-85-Math.random()*210)+'px');
+  icon.style.setProperty('--dy',(-95+Math.random()*200)+'px');
+  icon.style.setProperty('--spin',(-480+Math.random()*960)+'deg');
+  icon.style.setProperty('--duration',(900+Math.random()*650)+'ms');
+  scene.append(icon);setTimeout(()=>icon.remove(),1650);emitted++;
  },105);
  beep(190,.16);setTimeout(()=>beep(340,.11),110);
  setTimeout(()=>{if(activeCatPanic===overlay){overlay.remove();activeCatPanic=null}},3900);
@@ -91,4 +83,31 @@ $('rerollRoast').onclick=()=>{roastIndex=(roastIndex+1)%roasts.length;$('persona
 $('celebrate').onclick=()=>{confetti(120);beep(880);toast('🌈 ACHIEVEMENT UNLOCKED: STILL ALIVE')};
 document.addEventListener('keydown',e=>{if($('quiz').classList.contains('hide')||['INPUT','TEXTAREA'].includes(document.activeElement.tagName))return;const q=questions[step];if(q.type==='options'&&/^[1-5]$/.test(e.key)){const n=Number(e.key)-1;if(n<q.choices.length){answers[q.key]=n;render();beep(480+n*70)}}if(e.key==='Enter'&&document.activeElement.tagName!=='BUTTON'){$('next').click()}if(e.key==='ArrowLeft'&&document.activeElement.tagName!=='INPUT'){$('back').click()}});
 document.addEventListener('click',e=>{if(e.target.closest('.option')){beep(540);e.target.closest('.option').classList.add('answer-bounce')}if(e.target.closest('#next'))beep(780);if(e.target.closest('#back'))beep(360)});
+})();
+
+// Cinematic opening: three separate black-screen lines, then a full-screen rainbow wipe.
+(function cinematicOpening(){
+ const overlay=document.getElementById('cinematicIntro');
+ const line=document.getElementById('introLine');
+ const wipe=document.getElementById('rainbowWipe');
+ const lines=['Deadlines are screaming.','Your coffee is judging you.','Find out exactly how close you are to becoming a human toast.'];
+ let timers=[];let finished=false;
+ function later(fn,ms){timers.push(setTimeout(fn,ms));}
+ function finish(){if(finished)return;finished=true;timers.forEach(clearTimeout);overlay.remove();document.body.classList.remove('intro-playing');}
+ function show(i){line.classList.remove('visible');later(()=>{line.textContent=lines[i];line.classList.add('visible');},220);}
+ function startWipe(){line.classList.remove('visible');wipe.classList.add('sweep');later(()=>{overlay.style.background='transparent';overlay.classList.add('reveal-home');wipe.classList.remove('sweep');wipe.classList.add('exit');later(finish,1150);},1800);}
+ document.getElementById('skipIntro').addEventListener('click',finish);
+ show(0);later(()=>show(1),1900);later(()=>show(2),3800);
+ // Third sentence appears at 4020ms, stays fully visible for three seconds.
+ later(startWipe,7020);
+})();
+
+
+/* Original user-drawn pixel artwork. Duplicate identical groups for a seamless marquee. */
+(function makePixelParade(){
+ for(const [id,offset] of [['paradeTop',0],['paradeBottom',1]]){
+  const root=document.getElementById(id);if(!root)continue;
+  const html=Array.from({length:22},(_,i)=>`<img class="parade-person" src="assets/${(i+offset)%2?'pose-run':'pose-arms'}.png" alt="" draggable="false">`).join('');
+  root.innerHTML=`<div class="parade-half">${html}</div><div class="parade-half" aria-hidden="true">${html}</div>`;
+ }
 })();
